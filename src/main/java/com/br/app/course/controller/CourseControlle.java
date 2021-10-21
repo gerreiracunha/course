@@ -13,6 +13,6 @@ public class CourseControlle {
     @ResponseStatus(HttpStatus.OK)
     public String proval(){
 
-        return "teste Gabriel2".toString();
+        return "teste Gabriel 3".toString();
     }
 }
