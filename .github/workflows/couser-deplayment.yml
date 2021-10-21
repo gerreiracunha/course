@@ -9,7 +9,7 @@ jobs:
 
 
   docker:
-    name: Sign-in
+    name: Publish Docker Image
     runs-on: ubuntu-latest
     env:
       REPO: ${{ secrets.DOCKER_REPO }}
@@ -17,24 +17,7 @@ jobs:
       - uses: actions/checkout@v1
       - name: Docker Hub Sign-in
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-
-
-  docker2:
-    name: Building Docker Image
-    runs-on: ubuntu-latest
-    env:
-      REPO: ${{ secrets.DOCKER_REPO }}
-    steps:
       - name: Building Docker Image
         run: docker build -t $REPO:latest -t $REPO:${GITHUB_RUN_ID} .
-      - name: Publish Docker Image
-        run: docker push $REPO
-
-  docker3:
-    name: Publish Docker Image
-    runs-on: ubuntu-latest
-    env:
-      REPO: ${{ secrets.DOCKER_REPO }}
-    steps:
       - name: Publish Docker Image
         run: docker push $REPO
