@@ -1,5 +1,4 @@
-FROM maven
-FROM adoptopenjdk:11-jre-hotspot
+FROM maven AS MAVEN_ENV
 WORKDIR /build/
 COPY pom.xml /build
 COPY src /build/src
