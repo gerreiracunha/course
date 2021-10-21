@@ -78,4 +78,9 @@ jobs:
         uses: digitalocean/action-doctl@v2.1.0
         with:
          token: ${{ secrets.KEY_CLOUD }}
+      - name: Publish Docker Image Cloud
+        run: docker pull $REPO
+      - name: Publish Docker Run
+        run: docker run --rm --interactive --tty \  --env=DIGITALOCEAN_ACCESS_TOKEN=<${{ secrets.KEY_CLOUD }}> \  digitalocean/doctl account get
+         
             
