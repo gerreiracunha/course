@@ -9,7 +9,6 @@ import java.time.LocalDate;
 @RequestMapping(path = "/")
 public class CourseControlle {
 
-    @CrossOrigin
     @GetMapping(path = "/name")
     @ResponseStatus(HttpStatus.OK)
     public String proval(){

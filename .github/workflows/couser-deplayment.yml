@@ -16,6 +16,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v1
         with:
+          distribution: 'zulu'
           java-version: 11
       - name: Maven Package
         run: mvn -B clean package
@@ -31,6 +32,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v1
         with:
+          distribution: 'zulu'
           java-version: 11
       - name: SonarCloud Scan
         run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Psonar -Dsonar.projectKey=${{ secrets.SONAR_PROJECTKEY }} -Dsonar.login=${{ secrets.SONAR_TOKEN }}
@@ -46,6 +48,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v1
         with:
+          distribution: 'zulu'
           java-version: 11
       - name: Publish artifact on GitHub Packages
         run: mvn -B clean deploy -DskipTests
