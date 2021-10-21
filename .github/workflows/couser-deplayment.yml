@@ -33,7 +33,7 @@ jobs:
         with:
           java-version: 11
       - name: SonarCloud Scan
-        run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Psonar -Dsonar.projectKey=${{ secrets.SONAR_PROJECTKEY }}
+        run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Psonar -Dsonar.projectKey=${{ secrets.SONAR_PROJECTKEY }} -Dsonar.login=${{ secrets.SONAR_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
