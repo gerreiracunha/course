@@ -9,21 +9,32 @@ jobs:
 
 
   docker:
-    name: Publish Docker Image
+    name: Sign-in
     runs-on: ubuntu-latest
     env:
       REPO: ${{ secrets.DOCKER_REPO }}
     steps:
       - uses: actions/checkout@v1
-      - name: Set up JDK
-       uses: actions/setup-java@v1
-          with:
-          distribution: 'zulu'
-          java-version: 11
-      - uses: actions/checkout@v1
       - name: Docker Hub Sign-in
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+
+  docker2:
+    name: Building Docker Image
+    runs-on: ubuntu-latest
+    env:
+      REPO: ${{ secrets.DOCKER_REPO }}
+    steps:
       - name: Building Docker Image
         run: docker build -t $REPO:latest -t $REPO:${GITHUB_RUN_ID} .
+      - name: Publish Docker Image
+        run: docker push $REPO
+
+  docker3:
+    name: Publish Docker Image
+    runs-on: ubuntu-latest
+    env:
+      REPO: ${{ secrets.DOCKER_REPO }}
+    steps:
       - name: Publish Docker Image
         run: docker push $REPO
