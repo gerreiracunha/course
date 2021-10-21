@@ -33,9 +33,11 @@ jobs:
         with:
           java-version: 11
       - name: SonarCloud Scan
-        run: mvn -B clean verify -Psonar -Dsonar.projectKey=${{ secrets.SONAR_PROJECTKEY }} -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }} -Dsonar.login=${{ secrets.SONAR_TOKEN }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn -B clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Psonar -Dsonar.projectKey=${{ secrets.SONAR_PROJECTKEY }}
+
 
   artifact:
     name: Publish Artifact
