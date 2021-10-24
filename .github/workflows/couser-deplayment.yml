@@ -17,8 +17,8 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
             host: ${{ secrets.HOST_CLOUD }}
-            USERNAME: ROOT
-            PORT: 22
+            USERNAME:  ${{ secrets.NAME_CLOUD }}
+            PORT:  ${{ secrets.PORT_CLOUD }}
             password: ${{ secrets.KEY_CLOUD }}
               script:| docker pull 030065/course
    
