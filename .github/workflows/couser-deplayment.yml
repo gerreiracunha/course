@@ -75,14 +75,16 @@ jobs:
     needs: [test,sonar,artifact,docker]
     env:
       REPO: ${{ secrets.DOCKER_REPO }}
-    steps:      
-      - name: GitHub Action for DigitalOcean - doctl
-        uses: digitalocean/action-doctl@v2.1.0
+    steps:
+      - uses: actions/checkout@v2
+      - name: Executing remote  command
+        uses: appleboy/ssh-action@master
         with:
-         token: ${{ secrets.KEY_CLOUD }}
-      - name: Publish Docker Image Cloud
-        run: docker pull $REPO
-      - name: Publish Docker Run
-        run: docker run --rm --interactive --tty \  --env=DIGITALOCEAN_ACCESS_TOKEN=<${{ secrets.KEY_CLOUD }}> \  digitalocean/doctl account get
+            host: ${{ secrets.HOST_CLOUD }}
+            USERNAME: ROOT
+            PORT: 22
+            password: ${{ secrets.KEY_CLOUD }}
+              script:| docker pull $REPO
+   
          
             
