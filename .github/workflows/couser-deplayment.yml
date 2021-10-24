@@ -68,3 +68,19 @@ jobs:
         run: docker build -t $REPO:latest -t $REPO:${GITHUB_RUN_ID} .
       - name: Publish Docker Image
         run: docker push $REPO
+  deploy:
+    needs: [test,sonar,artifact,docker]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' 
+    steps:
+        - uses: actions/checkout@v2
+        - name: Executing remote  command
+          uses: appleboy/ssh-action@master
+          with:
+            host: ${{ secrets.HOST_CLOUD }}
+            USERNAME: ${{ secrets.NAME_CLOUD }}
+            PORT: ${{ secrets.PORT_CLOUD }}
+            password: ${{ secrets.KEY_PRIVATE }}
+             script:| 
+                docker pull 030065/course
+            
